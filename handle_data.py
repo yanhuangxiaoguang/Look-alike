@@ -122,8 +122,9 @@ with open('/media/candela/段光强/preliminary_contest_data/userFeature.data') 
     headers = next(f_csv)
     i = 0
     line = ''
+    f_u = open('user.data', 'a')
     for row in f_csv:
-        f_u = open('user.data', 'a')
+
         list_row = row[0].split('|')
         uid = list_row[0].split(' ')
         #head_id =
@@ -153,7 +154,7 @@ with open('/media/candela/段光强/preliminary_contest_data/userFeature.data') 
         f_u.write(line)
         print(line[:-1])
         i += 1
-        # if i == 1000:
-        #     break
-        f_u.close()
+        if i%1000==0:
+            print(i)
+    f_u.close()
 write_time(explain='finish:')
