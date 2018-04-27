@@ -3,6 +3,8 @@ import datetime
 dict_len = {}
 dict_data = {}
 all_len = 0
+
+#将interest1、2、3、4、5统一为interest，kw123统一为kw，将topic123统一为topic
 def hande_name(name):
     if name =='interest1'or name == 'interest2' or name == 'interest3'or name == 'interest4' or name == 'interest5':
         return 'interest'
@@ -12,13 +14,15 @@ def hande_name(name):
         return 'topic'
     else:
         return name
+#保存运行开始时间和结束时间
 def write_time(explain):
     f_time = open('time.txt', 'a')
     time_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     f_time.write(explain+time_now)
     f_time.write('\n')
     f_time.close()
-
+#将01字符串转化为ab字符串
+#b代表1，如果有连续50个0则转化为50a
 def diminish(str_a):
     str_b = ''
     count_0 = 0
@@ -39,7 +43,7 @@ def diminish(str_a):
         str_b += tmp_b
     #print(str_b)
     return str_b
-
+#将从原始数据中读出，放在集合中，统计共有多少种属性
 #with open('I:\preliminary_contest_data\\userFeature.data') as f:
 with open('/media/candela/段光强/preliminary_contest_data/userFeature.data') as f:
 
@@ -113,9 +117,10 @@ with open('/media/candela/段光强/preliminary_contest_data/userFeature.data') 
     print(i)
 #预处理
 list_key = list(dict_len.keys())
+#输出总的维度
 print(all_len)
-#
 write_time(explain='statistics:')
+#将数据转化为01，以及再转化为ab串，存储
 #with open('I:\preliminary_contest_data\\userFeature.data') as fa:
 with open('/media/candela/段光强/preliminary_contest_data/userFeature.data') as fa:
     f_csv = csv.reader(fa)
@@ -130,6 +135,7 @@ with open('/media/candela/段光强/preliminary_contest_data/userFeature.data') 
         #head_id =
         line = ''
         count = 1
+        #将原始数据转化为01编码
         for key_num in range(len(list_key)):
             tmp_key = list_key[key_num]
             #print('11111')
@@ -148,7 +154,9 @@ with open('/media/candela/段光强/preliminary_contest_data/userFeature.data') 
                 count += 1
             if count == len(list_row):
                 break
+            
             line = line + str_num
+        #将01编码转化为ab编码，缩小存储所需空间
         line = diminish(str_a=line)
         line = uid[1]+':'+line + '\n'
         f_u.write(line)
